@@ -1,3 +1,1 @@
 # jenkins-docker
-#azul 
-# salu 

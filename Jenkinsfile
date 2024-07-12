@@ -7,17 +7,17 @@ pipeline {
 
         stage('Build docker image') {
             steps {
-                sh 'docker build -t myapp/flask:$BUILD_NUMBER .'
+                sh 'sudo docker build -t myapp/flask:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
             steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'sudo echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
         stage('push image') {
             steps{
-                sh 'docker push myapp/flask:$BUILD_NUMBER'
+                sh 'sudo docker push myapp/flask:$BUILD_NUMBER'
             }
         }
 }

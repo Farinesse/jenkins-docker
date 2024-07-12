@@ -17,7 +17,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push farines/flask:$BUILD_NUMBER'
+                sh 'docker push /flask:$BUILD_NUMBER'
             }
         }
 }

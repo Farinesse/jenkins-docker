@@ -4,7 +4,7 @@ RUN pip install flask
 
 COPY . /opt/
 
-EXPOSE 8081
+EXPOSE 8080
 
 WORKDIR /opt
 

@@ -1,3 +1,2 @@
 # jenkins-docker
-# test
 # Trivy

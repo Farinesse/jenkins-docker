@@ -12,14 +12,19 @@ pipeline {
         stage('Scan Docker Image with Trivy') {
             steps {
                 script {
-                    def trivyOutput = sh(script: "trivy image farines/flask:$BUILD_NUMBER", returnStdout: true).trim()
-                    println trivyOutput
-                    if (trivyOutput.contains("Total: 0")) {
-                        echo "No vulnerabilities found in the Docker image."
-                    } else {
-                        echo "Vulnerabilities found in the Docker image."
-                        // Optionally fail the build if vulnerabilities are found
-                        // error "Vulnerabilities found in the Docker image."
+                    try {
+                        def trivyOutput = sh(script: "trivy image farines/flask:$BUILD_NUMBER", returnStdout: true).trim()
+                        println trivyOutput
+                        if (trivyOutput.contains("Total: 0")) {
+                            echo "No vulnerabilities found in the Docker image."
+                        } else {
+                            echo "Vulnerabilities found in the Docker image."
+                            // Optionally fail the build if vulnerabilities are found
+                            // error "Vulnerabilities found in the Docker image."
+                        }
+                    } catch (Exception e) {
+                        echo "Trivy scan failed: ${e.message}"
+                        error "Stopping the build due to Trivy scan failure."
                     }
                 }
             }
